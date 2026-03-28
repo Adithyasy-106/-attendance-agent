@@ -6,8 +6,7 @@ import {
   Lock,
   CheckCircle2,
   Loader2,
-  AlertTriangle,
-  TerminalBox
+  AlertTriangle
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
