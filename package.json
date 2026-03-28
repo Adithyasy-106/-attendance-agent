@@ -1,0 +1,19 @@
+{
+  "name": "attendance-agent-root",
+  "version": "1.0.0",
+  "scripts": {
+    "setup": "npm install && cd client && npm install && cd ../server && npm install",
+    "dev": "concurrently \"cd client && npm run dev\" \"cd server && node index.js\"",
+    "build": "cd client && npm run build",
+    "start": "cd server && node index.js"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "dependencies": {
+    "clsx": "^2.1.1",
+    "framer-motion": "^12.38.0",
+    "lucide-react": "^1.7.0",
+    "tailwind-merge": "^3.5.0"
+  }
+}

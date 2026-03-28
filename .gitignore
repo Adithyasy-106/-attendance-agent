@@ -1,0 +1,43 @@
+# Dependencies
+node_modules/
+/.pnp
+.pnp.js
+
+# Testing
+/coverage
+
+# Next.js build output
+client/.next/
+client/out/
+
+# Production builds
+build/
+dist/
+
+# Misc
+.DS_Store
+*.pem
+
+# Debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Local environment variables
+.env
+.env*.local
+client/.env
+server/.env
+client/.env.local
+server/.env.local
+
+# Databases (SQLite persistence)
+*.sqlite
+*.sqlite3
+*.db
+*.sqlite-journal
+server/attendance_sessions.sqlite
+server/attendance_sessions.sqlite-journal
+
+# Vercel & Render
+.vercel

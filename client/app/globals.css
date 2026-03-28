@@ -1,0 +1,381 @@
+@import "tailwindcss";
+
+/* Design tokens — cohesive dark UI */
+:root {
+  --background: #070709;
+  --background-elevated: #0c0c0f;
+  --foreground: #f4f4f5;
+  --foreground-muted: #a1a1aa;
+  --primary: #6366f1;
+  --primary-hover: #818cf8;
+  --secondary: #8b5cf6;
+  --accent: #f59e0b;
+  --card: rgba(16, 16, 20, 0.72);
+  --border: rgba(255, 255, 255, 0.07);
+  --border-strong: rgba(255, 255, 255, 0.12);
+  --ring: rgba(99, 102, 241, 0.45);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-top: env(safe-area-inset-top, 0px);
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    color-scheme: dark;
+  }
+
+  body {
+    background: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans), system-ui, -apple-system, "Segoe UI", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    touch-action: manipulation;
+    overflow-x: hidden;
+    letter-spacing: -0.011em;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+  }
+}
+
+/* Ambient background (used on main shell) */
+.app-bg-mesh {
+  background-color: var(--background);
+  background-image:
+    radial-gradient(ellipse 120% 80% at 50% -30%, rgba(99, 102, 241, 0.18), transparent 55%),
+    radial-gradient(ellipse 80% 50% at 100% 0%, rgba(139, 92, 246, 0.12), transparent 45%),
+    radial-gradient(ellipse 60% 40% at 0% 100%, rgba(59, 130, 246, 0.08), transparent 50%);
+}
+
+/* Glass panels */
+.glass {
+  background: var(--card);
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  border: 1px solid var(--border);
+  box-shadow:
+    0 1px 0 0 rgba(255, 255, 255, 0.04) inset,
+    0 24px 48px -12px rgba(0, 0, 0, 0.55);
+}
+
+/* Cards & inputs — shared feel */
+.ui-panel {
+  border-radius: 1rem;
+  border: 1px solid var(--border);
+  background: rgba(12, 12, 15, 0.65);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.35);
+}
+
+/* Form field: label + control */
+.ui-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.ui-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--foreground-muted);
+}
+
+.ui-hint {
+  margin-top: -0.125rem;
+  font-size: 0.75rem;
+  line-height: 1.4;
+  color: #71717a;
+}
+
+.ui-input {
+  box-sizing: border-box;
+  display: block;
+  width: 100%;
+  min-height: 3rem;
+  border-radius: 0.875rem;
+  border: 1px solid var(--border);
+  background-color: #121214;
+  background-image: none;
+  padding: 0.75rem 1rem;
+  font-size: 0.9375rem;
+  line-height: 1.45;
+  color: var(--foreground);
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s,
+    background-color 0.2s;
+}
+
+.ui-input::placeholder {
+  color: #71717a;
+}
+
+.ui-input:hover:not(:disabled) {
+  border-color: var(--border-strong);
+  background-color: #18181b;
+}
+
+.ui-input:focus {
+  outline: none;
+  border-color: rgba(99, 102, 241, 0.55);
+  background-color: #18181b;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+}
+
+.ui-input:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+/* Native select: restore chevron (appearance-none removes it) + readable options */
+select.ui-input {
+  cursor: pointer;
+  padding-right: 2.75rem;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-color: #121214;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23a1a1aa' stroke-width='2'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M19 9l-7 7-7-7'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 1.125rem;
+}
+
+select.ui-input:hover:not(:disabled) {
+  background-color: #18181b;
+}
+
+select.ui-input:focus {
+  background-color: #18181b;
+}
+
+select.ui-input option {
+  background-color: #18181b;
+  color: #f4f4f5;
+  padding: 0.5rem;
+}
+
+/* Compact selects (e.g. timetable grid cells) */
+select.ui-input-sm {
+  min-height: 2.25rem;
+  padding: 0.35rem 1.5rem 0.35rem 0.4rem;
+  font-size: 0.5rem;
+  line-height: 1.2;
+  border-radius: 0.5rem;
+  background-size: 0.7rem;
+  background-position: right 0.3rem center;
+}
+
+@media (min-width: 640px) {
+  select.ui-input-sm {
+    min-height: 2.5rem;
+    padding: 0.45rem 1.65rem 0.45rem 0.45rem;
+    font-size: 0.5625rem;
+    background-size: 0.8rem;
+  }
+}
+
+/* Dashed upload targets — same visual language as .ui-input */
+.ui-dropzone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  min-height: 11rem;
+  padding: 2rem 1.25rem;
+  border-radius: 1rem;
+  border: 2px dashed rgba(255, 255, 255, 0.12);
+  background-color: #121214;
+  cursor: pointer;
+  transition:
+    border-color 0.2s ease,
+    background-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.ui-dropzone:hover:not(:disabled):not([aria-busy="true"]) {
+  border-color: rgba(99, 102, 241, 0.4);
+  background-color: #18181b;
+  box-shadow: 0 0 0 1px rgba(99, 102, 241, 0.12);
+}
+
+.ui-dropzone[aria-busy="true"],
+.ui-dropzone--loading {
+  cursor: wait;
+  opacity: 0.75;
+  border-color: rgba(99, 102, 241, 0.25);
+}
+
+.ui-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  border-radius: 0.875rem;
+  padding: 0.875rem 1.25rem;
+  font-weight: 600;
+  font-size: 0.875rem;
+  letter-spacing: -0.02em;
+  color: #fff;
+  background: linear-gradient(135deg, #4f46e5 0%, #6366f1 45%, #7c3aed 100%);
+  box-shadow:
+    0 1px 0 0 rgba(255, 255, 255, 0.12) inset,
+    0 8px 24px -4px rgba(79, 70, 229, 0.45);
+  transition:
+    transform 0.15s ease,
+    filter 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.ui-btn-primary:hover:not(:disabled) {
+  filter: brightness(1.06);
+  box-shadow:
+    0 1px 0 0 rgba(255, 255, 255, 0.14) inset,
+    0 12px 28px -4px rgba(79, 70, 229, 0.5);
+}
+
+.ui-btn-primary:active:not(:disabled) {
+  transform: scale(0.99);
+}
+
+.ui-btn-primary:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.ui-btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  border-radius: 0.875rem;
+  padding: 0.875rem 1.25rem;
+  font-weight: 600;
+  font-size: 0.875rem;
+  color: #18181b;
+  background: #fafafa;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  transition:
+    background 0.15s ease,
+    transform 0.15s ease;
+}
+
+.ui-btn-secondary:hover:not(:disabled) {
+  background: #f4f4f5;
+}
+
+.ui-btn-secondary:active:not(:disabled) {
+  transform: scale(0.99);
+}
+
+.ui-btn-secondary:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* Ghost / outline — back & secondary nav */
+.ui-btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.375rem;
+  min-height: 3rem;
+  padding: 0.625rem 1rem;
+  border-radius: 0.875rem;
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.02);
+  color: #a1a1aa;
+  font-weight: 600;
+  font-size: 0.875rem;
+  letter-spacing: -0.02em;
+  transition:
+    background 0.25s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.25s cubic-bezier(0.22, 1, 0.36, 1),
+    color 0.25s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.18s ease,
+    box-shadow 0.25s ease;
+}
+
+.ui-btn-ghost:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: var(--border-strong);
+  color: #f4f4f5;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.04);
+}
+
+.ui-btn-ghost:active:not(:disabled) {
+  transform: scale(0.99);
+}
+
+.ui-btn-ghost:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* Smooth defaults for interactive UI */
+.ui-btn-primary,
+.ui-btn-secondary,
+.ui-input,
+.ui-dropzone,
+.glass {
+  transition:
+    background-color 0.25s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.25s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.25s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.2s ease,
+    opacity 0.25s ease;
+}
+
+::selection {
+  background: rgba(99, 102, 241, 0.35);
+  color: #fff;
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(99, 102, 241, 0.45);
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+* {
+  scroll-behavior: smooth;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Horizontal snap row for mobile quick actions */
+.snap-prompts {
+  scroll-padding-inline: 0.5rem;
+  -webkit-overflow-scrolling: touch;
+}
+
+.snap-prompts > * {
+  scroll-snap-align: start;
+}
